@@ -70,6 +70,18 @@ post {
 }
 
 
+.footer {
+    padding: 10px 20px;
+    border: 4px solid;
+    border-color: #bababa;
+    max-width: 1600px;
+    margin: 20px auto;
+    background: #ffffff;
+    color: #1a1a1a;
+    font-size: 15px;
+    text-align: center;
+}
+
 .wrapper {
     display: flex;
     gap: 30px;
@@ -92,6 +104,10 @@ post {
     border-style: solid;
     margin: 0 auto;
     width: 100%;
+    /* lets the feed shrink narrower than a wide equation, instead of pushing
+       the sidebar off the page. the equation is then scaled down to fit by
+       fitEquations in script.js */
+    min-width: 0;
 }
 
 .feedNav {
@@ -107,6 +123,8 @@ post {
     display: block;
     background: #ffffff;
     width: 500px;
+    /* never wider than the feed: half of the wrapper, less half the gap */
+    max-width: calc((100% - 30px) / 2);
     color: black;
     padding: 30px;
     justify-content: left;
@@ -115,7 +133,49 @@ post {
     border-style: solid;
 }
 
+/* the navigation links in a bar under the header, for when the sidebar is gone */
+.navbar {
+    display: none;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 10px 30px;
+    padding: 10px 20px;
+    border: 4px solid;
+    border-color: #bababa;
+    max-width: 1600px;
+    margin: 20px auto 0;
+    background: #ffffff;
+    font-size: 17px;
+}
 
+/* on narrow windows the sidebar is dropped, leaving the feed the whole width,
+   and its navigation links move to the bar under the header */
+@media (max-width: 900px) {
+    .sidebar {
+        display: none;
+    }
+
+    .navbar {
+        display: flex;
+    }
+}
+
+
+
+/* the sidebar's list of recent posts: titles only, no bullets */
+.recent-posts {
+    list-style: none;
+    padding-left: 0;
+}
+
+.recent-posts li {
+    margin-bottom: 6px;
+}
+
+.recent-date {
+    color: #1a1a1a;
+    font-size: 13px;
+}
 
 /* posts and their associated bits */
 
@@ -126,6 +186,17 @@ post {
 .post name {
     color: #000000;
     font-size: 50px;
+}
+
+/* in previews the title links to the post, but should look exactly like a plain title */
+.post name a,
+.post name a:link,
+.post name a:visited,
+.post name a:hover,
+.post name a:active {
+    color: inherit;
+    font: inherit;
+    text-decoration: none;
 }
 
 /* the "Read full post" link at the bottom of a preview */
@@ -172,6 +243,18 @@ post {
 
 
 
+/* displayed equations are scaled down to fit the post by fitEquations in
+   script.js, but the browser won't draw text smaller than about 6px. an
+   equation that still doesn't fit at that size gets marked too-wide, and
+   scrolls sideways instead of spilling out of the post. (only those, because
+   scrolling can shave a pixel or two off the top and bottom of an equation) */
+.katex-display.too-wide {
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+
+
 /* inline notes: a clickable <noteButton> followed by the <innerNote> it opens */
 
 noteButton {
@@ -191,7 +274,7 @@ innerNote {
 
 innerNote .close-button {
     position: absolute;
-    top: 2px;
+    bottom: 2px;
     right: 6px;
     color: blue;
     cursor: pointer;

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Bianchi Eisenstein series I | Modular Methods</title>
+<link rel="stylesheet" href=" ../../style.css ">
+<link rel="icon" href=" ../../icon.png">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
+
+<!-- The loading of KaTeX is deferred to speed up page rendering -->
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.js" integrity="sha384-YNHdsYkH6gMx9y3mRkmcJ2mFUjTd0qNQQvY9VYZgQd7DcN7env35GzlmFaZ23JGp" crossorigin="anonymous" onload="renderKatex()"></script>
+
+<meta charset="UTF-8">
+
+</head>
+
+<body>
+
+	<script src=" ../../script.js"></script>
+	<div class = "header">
+		<a href = "/"><h1>Modular Methods</h1></a>
+		<a href = "/"><h2><i>Math and other interesting things</i></h2></a>
+		<div class = "header-img">
+			<a href = "/"><img src=" ../../banner.JPG" alt="The gap between north and south Sydney, connecting the harbour to the pacific ocean."></a>
+		</div>
+	</div>
+	<div class = "navbar">
+		<a href="../../">Home</a>
+		<a href="../../about/">About</a>
+		<a href="../../contact/">Contact</a>
+	</div>
+	<br>
+	<div class = "wrapper">
+		<div class = "postFeed"><div class = "post"><name>Bianchi Eisenstein series I</name>
+	<br>
+	<date>Posted on 2026-11-03</date>
+	<br>
+	<p>Let <katex-inline>F</katex-inline> be an imaginary quadratic field, with ring of integers <katex-inline>\OO_F</katex-inline>. The group <katex-inline>\Gamma = \PSL_2(\OO_F)</katex-inline> is a <strong>Bianchi group</strong>. For simplicity, we will assume that the class number of <katex-inline>F</katex-inline> is 1<note><noteButton>.</noteButton><innerNote>The main difference for larger class number is that the tuples of functions we will describe need to replaced with <katex-inline>h_F</katex-inline>-many tuples, and their Fourier expansions change.</innerNote></note> We will describe some Eisenstein series for <katex-inline>\Gamma</katex-inline>. </p>
+<p>First, a brief recap on Bianchi modular forms. The group <katex-inline>\SL_2(\C)</katex-inline> acts on <katex-inline>\HH_3 = \C \times \R_{&gt;0}</katex-inline>, the upper half-space, via the following formula: </p>
+<p><katex-block> \begin{bmatrix} a &amp; b \\ c &amp; d\end{bmatrix} \cdot (z,t) = \left( \frac{(az+b)(\overline{cz+d}) +a \overline{c} t^2}{\abs{cz+d}^2 + \abs{ct}^2}, \frac{t}{\abs{cz+d}^2 + \abs{ct}^2}\right).</katex-block></p>
+<p>It isn't obvious that this is a group action; it takes a more familiar form when we embed <katex-inline>\HH_3</katex-inline> into <katex-inline>\Hq</katex-inline> via <katex-inline>(z,t) \mapsto \tau = z + t\j</katex-inline>:</p>
+<p><katex-block> \begin{bmatrix} a &amp; b \\ c &amp; d\end{bmatrix} \cdot \tau = (a\tau + b)(c \tau + d)^{-1}. </katex-block></p>
+<p>This is a multiplication in the non-commuting quaternions, so one should always pick a side upon which to multiply by <katex-inline>(c \tau + d)^{-1}</katex-inline> and stick to it<note><noteButton>.</noteButton><innerNote>As an aside, if one runs through the same computation for a matrix in <katex-inline>\SL_2(\R)</katex-inline> acting on <katex-inline>\HH_2</katex-inline>, expressed in the coordinates <katex-inline>(x,y)</katex-inline>, one gets essentially the same formula. This is easier, since multiplication in the complex numbers commutes<note><noteButton>.</noteButton><innerNote>As an aside to the aside, I have always enjoyed the comment in Section 2.2.4 of Chris Williams' thesis that introduces this action: <em>"Alternatively, the action can be worked out painfully and explicitly to give [the (z,t) form above]"</em> </innerNote></note></innerNote></note> A Bianchi modular form of weight <katex-inline>\rho</katex-inline> for <katex-inline>\Gamma</katex-inline> is a tuple of functions <katex-inline>f \colon \HH_3 \to \C^n</katex-inline>, satisfying</p>
+<ol>
+<li><katex-inline>f(g \tau) = \rho(J(g,\tau)) f(\tau)</katex-inline> for all <katex-inline>\tau \in \HH_3</katex-inline>, all <katex-inline>g \in \Gamma</katex-inline>; </li>
+<li><katex-inline>f</katex-inline> is an eigenvector for the Casimir operators;</li>
+<li><katex-inline>f(\tau)</katex-inline> is of moderate growth as <katex-inline>t \to 0,\infty</katex-inline>. </li>
+</ol>
+<p>Here, <katex-inline>\rho</katex-inline> is a representation of the maximal compact <katex-inline>\SU(2) \leq \SL_2(\C)</katex-inline>, and <katex-inline>J(g,\tau)</katex-inline> is the matrix <katex-inline>\bsmallmatrix{cz + d &amp; -ct \\ \overline{c}t &amp; \overline{cz+d}}</katex-inline><note><noteButton>.</noteButton><innerNote>This is not strictly <em>in</em> the maximal compact, but this is not actually a problem. One should divide by the square root of its (real) determinant to land in <katex-inline>\SU(2)</katex-inline>, then post-multiply by a power of the determinant on the outside of <katex-inline>\rho</katex-inline>. This is the usual headache created by <katex-inline>\SL</katex-inline> and <katex-inline>\GL</katex-inline> automorphic forms. Probably we should be doing everything in terms of a slash action, but there's already too much notation in this post. I believe everything I have written is correct anyway.</innerNote></note> </p>
+<p>If you have never thought about a Bianchi modular form before, you can get a long way by mapping these properties onto the three properties defining a classical modular form: automorphy, holomorphicity, and good behaviour at the cusps. In the classical and Bianchi case, all three conditions are the specific versions of the general properties of an automorphic form for a reductive group, specialised to the Lie groups <katex-inline>\SL_2(\R)</katex-inline> and <katex-inline>\SL_2(\C)</katex-inline>. The essential difference between classical and Bianchi modular forms is that Bianchi forms are almost always vector-valued, rather than scalar-valued. A scalar modular form really is a quirk of the case of <katex-inline>\SL_2(\R)</katex-inline> rather than the expectation; since its maximal compact <katex-inline>\SO(2)</katex-inline> is abelian, all of its irreducible representations are characters. Meanwhile <katex-inline>\SU(2)</katex-inline> is not abelian, and so vector-valued forms really are the "correct" object. </p>
+<p>Writing down modular forms is often quite hard and annoying. This is a great advertisement for (clasical) Eisenstein series, which can be very cleanly written down as </p>
+<p><katex-block> G_k(z) = \sum_{(c,d) \in \Z^2}^{\prime} \frac{1}{(cz+d)^k} </katex-block></p>
+<p>for <katex-inline>k &gt; 2</katex-inline> an even integer. Here the primed sum denotes summation excluding the terms that don't make sense, i.e. where <katex-inline>c = d = 0</katex-inline>. We also have the series </p>
+<p><katex-block> E_k(z) = \sum_{g \in \Gamma_{\infty} \backslash \SL_2(\Z)} j(g,z)^{-k} </katex-block></p>
+<p>with <katex-inline>\Gamma_{\infty}</katex-inline> the stabiliser of <katex-inline>\infty</katex-inline> in <katex-inline>\SL_2(\Z)</katex-inline>, and <katex-inline>j(g,z) = cz+d</katex-inline> is the usual factor of automorphy. The two series differ by a constant factor of <katex-inline>2\zeta(k)</katex-inline>. </p>
+<p>To generalise this to the Bianchi group setting, we will define a very similar factor of automorphy. Define <katex-inline>j(g,\tau) = c \tau + d = cz +d + ct \j</katex-inline> for <katex-inline>g = \bsmallmatrix{a &amp; b \\c &amp; d}</katex-inline>. There is an additive and multiplicative representation <katex-inline>\sigma</katex-inline> of <katex-inline>\Hq</katex-inline> as a (left) <katex-inline>\C</katex-inline> vector space: </p>
+<p><katex-block> \sigma(z + w\j) = \begin{bmatrix} z &amp; -w \\ \overline{w} &amp; \overline{z} \end{bmatrix} </katex-block></p>
+<p>with <katex-inline>J(g,\tau) = \sigma(j(g,\tau))</katex-inline>. Note also that <katex-inline>\sigma(q)^{-1} = N(q)^{-1}\sigma(\overline{q})</katex-inline>. The scalar-valued factor of automorphy <katex-inline>j(g,\tau)</katex-inline> satisfies the usual cocycle property:</p>
+<p><katex-block> j(gh,\tau) = j(g,h\tau) j(h,\tau). </katex-block></p>
+<p>Again, this is multiplication in the quaternions, so the order matters! We can define a "matrix-valued Eisenstein series" by </p>
+<p><katex-block> E_{\rho}^{s}(\tau) = \sum_{g \in \Gamma_{\infty} \backslash \Gamma} \rho(J(g,\tau))^{-1} \left( \frac{t}{N(j(g,\tau))} \right)^s, </katex-block></p>
+<p>where <katex-inline>N(\cdot)</katex-inline> is the quaternion norm, and <katex-inline>\Gamma_{\infty} \leq \Gamma</katex-inline> is the stabiliser of the cusp <katex-inline>\infty</katex-inline>. The proof that this function is invariant under the action of <katex-inline>\Gamma</katex-inline> is essentially the same as in the classical case. The factor <katex-inline>\frac{t}{N(j(g,\tau))}</katex-inline> becomes <katex-inline>\frac{t}{N(j(gh,\tau))}</katex-inline><note><noteButton>,</noteButton><innerNote>this follows from the transformation formula for the <katex-inline>\SL_2(\C)</katex-inline> action and the cocycle property</innerNote></note> and, since <katex-inline>\sigma</katex-inline> and <katex-inline>\rho</katex-inline> are both multiplicative, we also have </p>
+<p><katex-block> \rho(J(g,h\tau))^{-1} = \rho(J(h,\tau)) \rho(J(gh,\tau))^{-1}. </katex-block></p>
+<p>Then we have </p>
+<p><katex-block> E_{\rho}^{s}(h \tau) = \rho(J(h,\tau)) \sum_{g \in \Gamma_{\infty} \backslash \Gamma} \rho(J(gh,\tau))^{-1} \left( \frac{t}{N(j(gh,\tau))} \right)^s .</katex-block></p>
+<p>Assuming the series converges absolutely, we are free to rearrange as we want, and the sum over <katex-inline>gh^{-1} \in \Gamma_{\infty} \backslash \Gamma</katex-inline> is just a rearrangement<note><noteButton>.</noteButton><innerNote>This requires a little bit of thought, but it is true.</innerNote></note> Thus, the whole matrix of functions has the required transformation property. </p>
+<p>To get an actual Bianchi modular form from this, it seems sensible to take column of this matrix, which will transform the same way. Assuming moderate growth (which will hold for <katex-inline>s</katex-inline> in some half-plane), the game is therefore to pick the column with the Casimir eigenvalues we want. Expressions for the Casimir operators acting on vector-valued functions can be found in Friedberg's 1983 <em>On Maass Wave Forms and the Imaginary Quadratic Doi-Naganuma lifting</em><note><noteButton>,</noteButton><innerNote>Math. Ann. 263, pp. 483-508</innerNote></note> as Proposition 2.3. To be remotely explicit about this, though, we need to pick a representation. The choice <katex-inline>\rho = \Sym^4</katex-inline>, the symmetric 4th power of the standard representation, is a nice test case where the expressions don't become too unwieldy. </p>
+<p>Explicitly, we want to pick out columns of the matrix </p>
+<p><katex-block> \Sym^4(J(g,\tau))^{-1} \left( \frac{t}{N(j(g,\tau))} \right)^s  = \frac{t^s}{(r \rbar + s \sbar)^{s+4}} \begin{bmatrix} 
+\rbar^4  &amp; \rbar^3 s  &amp; \rbar^2 s^2  &amp; \rbar s^3    &amp;    s^4 \\<br />
+-4 \rbar^3 \sbar &amp; \rbar^2 (r \rbar - 3 s \sbar) &amp; 2 \rbar s (r \rbar - s \sbar) &amp; s^2 (3 r \rbar - s \sbar) &amp; 4 r s^3 \\
+6 \rbar^2 \sbar^2 &amp; 3 \rbar \sbar (-r \rbar + s \sbar) &amp; r^2 \rbar^2 - 4 r \rbar s \sbar + s^2 \sbar^2 &amp; 3 r s (r \rbar - s \sbar) &amp; 6 r^2 s^2 \\
+-4 \rbar \sbar^3 &amp; \sbar^2 (3 r \rbar - s \sbar) &amp; 2 r \sbar (-r \rbar + s \sbar) &amp; r^2 (r \rbar - 3 s \sbar) &amp; 4 r^3 s \\
+\sbar^4 &amp; -r \sbar^3 &amp; r^2 \sbar^2 &amp; -r^3 \sbar &amp; r^4
+\end{bmatrix}  </katex-block></p>
+<p>with Casimir eigenvalues, where <katex-inline>r = cz+d</katex-inline> and <katex-inline>s = ct</katex-inline><note><noteButton>.</noteButton><innerNote>With apologies to mobile users.</innerNote></note> Write <katex-inline>e_0,\ldots,e_4</katex-inline> for the standard unit colums vectors, and write <katex-inline>v_{4}^{i,s}</katex-inline> for <katex-inline>\Sym^4(J(g,\tau))^{-1} \left( \frac{t}{N(j(g,\tau))} \right)^s e_i</katex-inline>. Then one can show that </p>
+<p><katex-block>  \Omega v_{4}^{i,s} = \frac{4 + s - i}{2} \left( \frac{4 + s - i}{2} - 1 \right) v_{4}^{i,s}, \hspace{1pc} \tilde{\Omega} v_{4}^{i,s} = \frac{s+i}{2} \left( \frac{s+i}{2} - 1 \right) v_{4}^{i,s}, </katex-block></p>
+<p>with <katex-inline>\Omega</katex-inline> and <katex-inline>\tilde{\Omega}</katex-inline> the two Casimir operators defined by Friedberg<note><noteButton>.</noteButton><innerNote>Denoted <katex-inline>\Psi</katex-inline> and <katex-inline>\tilde{\Psi}</katex-inline> in his paper.</innerNote></note> This is a rather lengthy and arduous calculation, and I would not really recommend it unless you have a long train journey coming up. We are working with <katex-inline>\Sym^4</katex-inline>, but this can all be done just as easily for <katex-inline>\Sym^n</katex-inline>, and the result is essentially the same, replacing the copies of <katex-inline>4</katex-inline> with <katex-inline>n</katex-inline>. Absolute convergence then gives us a Bianchi Eisenstein series <katex-inline>E_{n}^{i,s}(\tau)</katex-inline>, defined by </p>
+<p><katex-block> E_{n}^{i,s}(\tau) = E_{\Sym^n}^{s}(\tau) e_i. </katex-block></p>
+<p>Of particular interest to number theory are the <em>cohomological Eisenstein series</em>; these are the ones contibuting to the cohomology of <katex-inline>\Gamma</katex-inline>. The usual set of weight representations one is interested in are <katex-inline>V_{k,l} = \Sym^{k} \otimes \overline{\Sym^{l}}</katex-inline> for integers <katex-inline>k,l \geq 0</katex-inline>, with the bar indicating that the action on the second factor is twisted by complex conjugation. A given Bianchi form shows up in <katex-inline>H^1(\Gamma,V_{k,l})</katex-inline> if it gives rise to a harmonic differential form valued in <katex-inline>V_{k,l}</katex-inline>. The exact construction is very involved (explained in Section 5.4.3 of Chris Williams' thesis<note><noteButton>).</noteButton><innerNote><em>Overconvergent modular symbols over number fields</em>, PhD thesis, University of Warwick, 2016.</innerNote></note> In the case of <katex-inline>\rho = \Sym^4</katex-inline>, there are exactly three Eisenstein series that contribute to cohomology, given by the vectors <katex-inline>v_{4}^{1,1}</katex-inline>, <katex-inline>v_{4}^{2,1}</katex-inline> and <katex-inline>v_{4}^{3,1}</katex-inline>, with coefficient representations <katex-inline>V_{2,0}</katex-inline>, <katex-inline>V_{1,1}</katex-inline> and <katex-inline>V_{0,2}</katex-inline> respectively<note><noteButton>.</noteButton><innerNote>Generally it seems that the <katex-inline>s=1</katex-inline> Eisenstein series are the most "well-behaved": the Fourier expansion of a Bianchi form is in terms of linear combinations of derivatives of Bessel functions, whereas the <katex-inline>s=1</katex-inline> forms all have nice expressions in pure Bessel functions only. One must be more careful when dealing with the <katex-inline>s=1</katex-inline> series at lower weight representations than <katex-inline>\Sym^4</katex-inline>, though. There is a generalisation of the classical real analytic Eisenstein series, a scalar-valued function associated to the trivial representation, but its value at <katex-inline>s=1</katex-inline> is either not defined, or needs to be defined via analytic continuation (I can't quite remember which). The <katex-inline>s=1</katex-inline> functions associated to the representation <katex-inline>\Sym^2</katex-inline> are similarly a little finicky due to lack of absolute convergence, giving an analogue of the classical <katex-inline>G_2</katex-inline>, with its almost-invariance.</innerNote></note></p>
+<p>The middle term contributes to the cohomology in parallel weight, here <katex-inline>(1,1)</katex-inline>. The groups <katex-inline>H^1(\Gamma,V_{k,k})</katex-inline> are the only ones to contain cusp forms, and the form defined by <katex-inline>v_{4}^{2,1}</katex-inline> is the base-change of a weight <katex-inline>3</katex-inline> Eisenstein series. This is an important difference between the classical and Bianchi settings, as forms with trivial nebentype can occur with "odd weight". </p>
+<p>The two other columns at <katex-inline>s=1</katex-inline> also have nice Fourier expansions, but do not contribute to these cohomology groups. Their constant terms also have a different shape to the three cohomological forms. More generally, for the representation <katex-inline>\Sym^n</katex-inline> with <katex-inline>n</katex-inline> even, the <katex-inline>i=0</katex-inline> and <katex-inline>i=n</katex-inline> columns will give rise to non-cohomological Eisenstein series at <katex-inline>s=1</katex-inline>, and the <katex-inline>i=1</katex-inline> to <katex-inline>i=n-1</katex-inline> columns will give rise to forms in cohomology with coefficients in <katex-inline>V_{n-2,0}, \ldots, V_{0,n-2}</katex-inline>. </p>
+<p>I got into Bianchi Eisenstein series after giving a talk about <a href="https://link.springer.com/article/10.1007/s40993-024-00513-w">my first paper</a>. Someone in the audience<note><noteButton></noteButton><innerNote>either at the Nottingham or London NT seminar, I can't remember which now. Both audiences had lots of useful and interesting things to say!</innerNote></note> asked whether the congruence between the genuine cusp forms in the paper could be seen at the level of the constant term of the actual functions themselves, as opposed to just in cohomology. This is what happens in the classical case, where <katex-inline>691</katex-inline> appears in the numerator of <katex-inline>\zeta(12)</katex-inline>, realising the mod <katex-inline>691</katex-inline> congruence of <katex-inline>E_{12}</katex-inline> and <katex-inline>\Delta</katex-inline>. In the Bianchi case, this would mean a factor of <katex-inline>173</katex-inline> appearing naturally in the constant term of the Eisenstein series contributing to <katex-inline>V_{10,10}</katex-inline> over <katex-inline>F = \Q(\sqrt{-11})</katex-inline>. Figuring this out turned out to be a lot more involved than I had expected, but I now believe the answer is "probably not". The constant term of the relevant Eisenstein series<note><noteButton></noteButton><innerNote>This is the constant term of the Eisenstein series <katex-inline>G_{23}^{12,1}(\tau)</katex-inline>, which I have not actually defined anywhere. It is the sum over pairs <katex-inline>(c,d)</katex-inline> in <katex-inline>\OO_F^2</katex-inline> not equal to <katex-inline>0</katex-inline>, as in the classical case, and is again related to <katex-inline>E_{23}^{12,1}(1,\tau)</katex-inline> by a factor with a zeta value</innerNote></note> is </p>
+<p><katex-block> -\left( \frac{\sqrt{11}}{\pi} \right)^{23} \cdot \frac{22!}{2^{24}} \cdot \zeta_F(12),</katex-block></p>
+<p>and there is no obvious appearance of <katex-inline>173</katex-inline> anywhere. One can factor the zeta value to get <katex-inline>\zeta_F(12) = \zeta(12) L(\chi_F,12)</katex-inline>, which gives the expected <katex-inline>691</katex-inline> (since the space of forms also contains the base-change of <katex-inline>\Delta</katex-inline> to <katex-inline>F</katex-inline>), but no copy of <katex-inline>173</katex-inline> shows up. Maybe there is some natural scaling of the form that would put <katex-inline>173</katex-inline> into the value <katex-inline>L(\chi_F,12)</katex-inline>, but I don't really expect that to be true. My overall impression after spending a lot of time trying to understand Bianchi modular forms as analytic objects is that classical modular forms are overall much nicer, with the algebraic and analytic structures interacting far more pleasingly than one can expect to happen in general. </p>
+<p>Further reading: </p>
+<ol>
+<li><em>On automorphic functions of half-integral weight with application to elliptic curves</em>, Goldfeld-Hoffstein-Patterson. <strong>Number Theory Related to Fermat's last Theorem</strong>. Progress in Mathematics, Vol. 26. pp 153-193. 1982. </li>
+<li><em>On Maass Wave Forms and the Imaginary Quadratic Doi-Naganuma Lifting</em>, Friedbeg. Math. Ann. 263, pp. 483-508. 1983.</li>
+<li><em>Eisenstein Series over Complex Quadratic Fields When the Class Number Exceeds One</em>, Steyer. Journal of Number Theory 27, pp 223-237. 1987. </li>
+</ol><div class="taglist">Post tagged with: <a href="/tagged/math">math</a>, <a href="/tagged/Bianchi%20modular%20forms">Bianchi modular forms</a>, <a href="/tagged/Eisenstein%20series">Eisenstein series</a></div></div>
+		</div>
+<div class = "sidebar">
+	<h3>Navigation</h3>
+	<a href="../../">Home</a>
+	<br>
+	<a href="../../about/">About</a>
+	<br>
+	<a href="../../contact/">Contact</a>
+	<br>
+	
+	<h3>Top tags</h3>
+		<ol><li><a href="/tagged/math">math</a></li><li><a href="/tagged/Bianchi%20modular%20forms">Bianchi modular forms</a></li><li><a href="/tagged/Eisenstein%20series">Eisenstein series</a></li></ol>
+	<h3>Recent posts</h3>
+		<ul class = "recent-posts"><li><a href="/posts/bianchi-eisenstein-series-i/">Bianchi Eisenstein series I</a> <span class="recent-date">(2026-11-03)</span></li></ul>
+	</div>
+	</div>
+	<div class = "footer">
+		Modular Methods
+	</div>
+
+</body>
+</html>
