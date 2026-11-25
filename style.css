@@ -1,10 +1,70 @@
 
+/* the blog's font, Noto Serif, served from fonts/ so that it looks the same on
+   every computer instead of falling back to whatever each browser's default
+   serif font is. the files are the ones installed on the computer the blog is
+   written on (/usr/share/fonts/truetype/noto), cut down with
+       python3 -m fontTools.subset NotoSerif-Regular.ttf --flavor=woff2
+           --unicodes=... --layout-features='*' --name-IDs='*' --no-hinting
+   to Latin, Greek, punctuation, arrows and a few maths symbols. anything else
+   falls back to the browser's own serif font */
+@font-face {
+    font-family: "Noto Serif";
+    src: url("fonts/noto-serif-regular.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Noto Serif";
+    src: url("fonts/noto-serif-italic.woff2") format("woff2");
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Noto Serif";
+    src: url("fonts/noto-serif-bold.woff2") format("woff2");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Noto Serif";
+    src: url("fonts/noto-serif-bold-italic.woff2") format("woff2");
+    font-weight: 700;
+    font-style: italic;
+    font-display: swap;
+}
+
+/* Noto Serif has no ⊞ or ⊟, the note icons script.js puts on note buttons,
+   so these two come from DejaVu Math TeX Gyre, which is where Firefox finds
+   them on the computer the blog is written on */
+@font-face {
+    font-family: "DejaVu Math TeX Gyre";
+    src: url("fonts/dejavu-math-note-icons.woff2") format("woff2");
+    unicode-range: U+229E-229F;
+    font-display: swap;
+}
+
+/* likewise ツ, which turns up in a ¯\_(ツ)_/¯, from Noto Serif CJK. any other
+   character Noto Serif doesn't have is drawn in the reader's own fonts */
+@font-face {
+    font-family: "Noto Serif CJK JP";
+    src: url("fonts/noto-serif-cjk-tsu.woff2") format("woff2");
+    unicode-range: U+30C4;
+    font-display: swap;
+}
+
 * {
     box-sizing: border-box;
 }
 
 body {
     background-color: #d4d4d4;
+    font-family: "Noto Serif", "DejaVu Math TeX Gyre", "Noto Serif CJK JP", serif;
 }
 
 
