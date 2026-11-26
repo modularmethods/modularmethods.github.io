@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>QM surfaces: coda | Modular Methods</title>
+<link rel="stylesheet" href=" ../../style.css ">
+<link rel="icon" href=" ../../icon.png">
+<link rel="alternate" type="application/rss+xml" title="Modular Methods" href="../../feed.xml">
+<link rel="preload" href="../../fonts/noto-serif-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../fonts/noto-serif-italic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../fonts/noto-serif-bold.woff2" as="font" type="font/woff2" crossorigin>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
+
+<!-- The loading of KaTeX is deferred to speed up page rendering -->
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.js" integrity="sha384-YNHdsYkH6gMx9y3mRkmcJ2mFUjTd0qNQQvY9VYZgQd7DcN7env35GzlmFaZ23JGp" crossorigin="anonymous" onload="renderKatex()"></script>
+
+<meta charset="UTF-8">
+
+</head>
+
+<body>
+
+	<script src=" ../../script.js"></script>
+	<div class = "header">
+		<a href = "/"><h1>Modular Methods</h1></a>
+		<a href = "/"><h2><i>Math and other interesting things</i></h2></a>
+		<div class = "header-img">
+			<a href = "/"><img src=" ../../banner.JPG" alt="The gap between north and south Sydney, connecting the harbour to the pacific ocean."></a>
+		</div>
+	</div>
+	<div class = "navbar">
+		<a href="../../">Home</a>
+		<a href="../../about/">About</a>
+		<a href="../../contact/">Contact</a>
+		<a href="../../feed.xml">RSS feed</a>
+	</div>
+	<br>
+	<div class = "wrapper">
+		<div class = "postFeed"><div class = "post"><name>QM surfaces: coda</name>
+	<br>
+	<date>Posted on 2026-11-26</date>
+	<br>
+	<p>In the post <a href="https://modularmethods.net/posts/qm-surfaces-and-bianchi-modular-forms/">QM surfaces and Bianchi modular forms</a> I mentioned a genuine QM abelian surface, found by Claude, which appears to be modular by a Bianchi form over <katex-inline>\Q(\sqrt{-19})</katex-inline>, as well as talking a little about the relationship between the L-value of the form and the covolume of the period lattice of the associated surface. I am sure that this relationship is instantaneously obvious to <em>those in the know</em>, but since I am in the know of very little, I have worked it out for myself, at least in this case. This is a short account of how you might go about doing that. </p>
+<p>To compute the L-value, you need the L-series. Any computational algebra system worth its salt has Dokchitser's methods for computing these to high precision<note><noteButton></noteButton><innerNote><em>Computing special values of motivic L-functions</em>.
+Experimental Mathematics, 13(2):137-149, 2004.</innerNote></note>, for which you need to supply the defining data: </p>
+<ol>
+<li>coefficients,</li>
+<li>conductor, </li>
+<li>weight,</li>
+<li>gamma factors.</li>
+</ol>
+<p>The <a href="https://docs.magma-maths.org/v2.30-1/ArithmeticGeometry/LFunctions/general.html#constructing-a-general-l-series">Magma handbook</a> describes all of these in detail, and since I'm using Magma to do all of these computations, that's a good place to look to follow along. Apologies to those without the means / Simons to access Magma. I'm sure it all works in Sage, too. </p>
+<p>For lots of objects in Magma, you can just call <code>LSeries(X)</code>. However, Magma's native <code>ModFrmBianchi</code> type does not currently have such an option, meaning you have to build the L-series by hand. If <code>E</code> is an elliptic curve modular by <code>f</code>, you can get around this by using <code>LSeries(E)</code>. But we are working with a QM abelian surface, which is not currently implemented, so we need to specify all the information manually.  </p>
+<p>We provide the coefficients in the form of Euler factors, which can be obtained directly from the hyperelliptic curve <code>C</code> whose Jacobian is <code>A</code>. Magma will compute Euler factors at almost all primes, just not at <katex-inline>(2)</katex-inline> and primes over the conductor (norm <katex-inline>43^4</katex-inline>). The prime <katex-inline>(2)</katex-inline> is not an issue, we can obtain the eigenvalue <katex-inline>a_{(2)} = 2</katex-inline> directly from the LMFDB. At the prime over <katex-inline>43</katex-inline>, since it appears in the level of <katex-inline>f</katex-inline> twice, the Euler factor is trivial. All other Euler factors are the usual <katex-inline>1 - a_{\mathfrak{p}}x + N(\mathfrak{p})x^2</katex-inline> at the split/ramified primes of <katex-inline>F</katex-inline>, and <katex-inline>1 - a_{\mathfrak{p}}x^2 + N(\mathfrak{p})x^4</katex-inline> at the inert. These <em>can</em> be obtained from the curve itself, since the Euler factor is always the square of the one defining the form. But computing the whole Euler factor and then square-rooting is overkill, and makes the whole computation take a very long time. The more sensible thing to do is to compute <code>EulerFactor(C,P : Degree := 1)</code>, which just gives <katex-inline>2a_{\mathfrak{p}}</katex-inline> without doing the unnecessary computation of the rest of the polynomial, then build the factors for oneself. </p>
+<p>The conductor is easy enough: it is the norm of the level of the form, multiplied by the square of the discriminant of the field. In this case, that is <code>1849 * 19^2 = 667489</code>. The weight is the usual <code>2</code>, and the gamma factors are the usual <code>[ 0, 0, 1, 1 ]</code>. Giving all of this information to Magma, we can define what Magma calls <code>L-series of unknown origin</code>. The critical check when one is doing L-series computations in this experimental way is <code>CheckFunctionalEquation</code>, or the newer <code>CFENew</code>. This checks whether the data provided defines a function satisfying the usual functional equation relation of the completed L-series, with the sign a complex number of absolute value <katex-inline>1</katex-inline>. In this case, it all passes fine (after the usual tinkering and getting the formulae wrong), and the resulting L-series has sign <katex-inline>1</katex-inline>.  </p>
+<p>Running <code>LCfRequired(L)</code> on our handmade L-series tells us that we need <katex-inline>11403</katex-inline> terms to reach 15 decimal digits of precision. I left this running overnight, and in the morning was greeted by the value </p>
+<p><katex-block> L(f,1) = 4.65828616566125. </katex-block></p>
+<p>With the abelian surface also defined in Magma, we can create a complex version of it by defining the same hyperelliptic curve over <katex-inline>\C</katex-inline> (using the embedding from <code>InfinitePlaces</code>), and take the <code>AnalyticJacobian</code>. Then <code>BigPeriodMatrix</code> gives the <katex-inline>4 \times 2</katex-inline> complex period matrix of the surface, which we split into real and imaginary parts to get a <katex-inline>4 \times 4</katex-inline> real matrix <katex-inline>M</katex-inline>. Finally, we have the ratio </p>
+<p><katex-block> \frac{L(f,1)^2}{|\det(M)|} = 4.21052631578947, </katex-block></p>
+<p>which isn't obviously a rational number. If we had the number to higher precision, Magma's <code>PowerRelation</code> might help, but each five decimal places we ask for from the L-series seems to approximately double the number of coefficients needed. So I just ran it through Wolfram Alpha, which tells us an approximate rational value: we (appear to) have </p>
+<p><katex-block> \frac{L(f,1)^2}{\mathrm{vol}(A)} = \frac{80}{19}. </katex-block> </p>
+<p>There are always precision issues when one does calculations like these, so this might not be correct. But the appearance of <katex-inline>19</katex-inline> in the denominator is encouraging. If it is right, this calculation suggests that the period of the <katex-inline>1</katex-inline>-form associated to <katex-inline>f</katex-inline> should satisfy </p>
+<p><katex-block> \Omega_1(f) \sim_{\Q} \sqrt{\abs{D}} \cdot \sqrt{\mathrm{vol}(A)}, </katex-block></p>
+<p>with <katex-inline>D</katex-inline> the discriminant of the base imaginary quadratic field. This is essentially the same as in the elliptic case, where <katex-inline>\sqrt{\mathrm{vol(A)}}</katex-inline> is <katex-inline>\sqrt{\mathrm{vol}(E)^2} = \mathrm{vol}(E)</katex-inline>. </p>
+<p>The Magma script I wrote for this computation is <a href="https://modularmethods.net/downloads/QM_surface_19_1849.m">available for download</a>.</p><div class="taglist">Post tagged with: <a href="/tagged/math">math</a>, <a href="/tagged/Bianchi%20modular%20forms">Bianchi modular forms</a>, <a href="/tagged/QM%20surfaces">QM surfaces</a>, <a href="/tagged/Magma">Magma</a></div></div>
+		</div>
+<div class = "sidebar">
+	<h3>Navigation</h3>
+	<a href="../../">Home</a>
+	<br>
+	<a href="../../about/">About</a>
+	<br>
+	<a href="../../contact/">Contact</a>
+	<br>
+	<a href="../../feed.xml">RSS feed</a>
+	<br>
+	
+	<h3>Top tags</h3>
+		<ol><li><a href="/tagged/math">math</a></li><li><a href="/tagged/Bianchi%20modular%20forms">Bianchi modular forms</a></li><li><a href="/tagged/QM%20surfaces">QM surfaces</a></li></ol>
+	<h3>Recent posts</h3>
+		<ul class = "recent-posts"><li><a href="/posts/qm-surfaces-coda/">QM surfaces: coda</a> <span class="recent-date">(2026-11-26)</span></li><li><a href="/posts/qm-surfaces-and-bianchi-modular-forms/">QM surfaces and Bianchi modular forms</a> <span class="recent-date">(2026-11-25)</span></li><li><a href="/posts/bianchi-eisenstein-series-i/">Bianchi Eisenstein series I</a> <span class="recent-date">(2026-11-03)</span></li></ul>
+	</div>
+	</div>
+	<div class = "footer">
+		Modular Methods
+	</div>
+
+</body>
+</html>
